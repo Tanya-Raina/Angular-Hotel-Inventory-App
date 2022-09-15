@@ -1,0 +1,49 @@
+<h3> {{ title }} </h3>
+
+<table class="table">
+  <tr [ngStyle]="{'color': 'green'}">
+    <!--  ngStyle also accepts variables    -->
+    <th>Index</th>
+    <th>Even/ Odd</th>
+    <th>Room Number</th>
+    <th>Room Type</th>
+    <th>Room Price</th>
+    <th>Amenities</th>
+    <th>Checkin Time</th>
+    <th>Checkout Time</th>
+    <th>Rating</th>
+    <th>Select Room</th>
+  </tr>
+  <!--directive!-->
+  <!-- ngClass -> helped toggle what style class we specified in rooms.component.scss. If it is even, use even class   -->
+  <!-- we can also load the variable directly -> [ngClass]="'odd'"   -->
+  <tr
+    [ngClass]="e ? 'even' : 'odd'"
+    *ngFor="let room of roomList
+
+      let e = even; let o = odd; let i=index;
+    ">
+    <!--  ngFor also gives us access to even/ odd values   -->
+    <!--  It also gives us an index value for each row, starting from 0    -->
+    <td>{{i}}</td>
+    <td>{{e ? 'Even' : 'Odd'}}</td>
+    <td>{{room.roomNumber}}</td>
+    <td>{{room.roomType}}</td>
+    <td>{{room.price | currency: "INR"}}</td>
+    <td>{{room.amenities | titlecase}}</td>
+    <td>{{room.checkinTime | date }}</td>
+    <td>{{room.checkoutTime | date }}</td>
+    <td>{{room.rating | number: '1.2-2'}}</td>
+    <td>
+<!--      <button-->
+<!--        class="btn btn-primary"-->
+<!--        (click)="selectRoom(room)">-->
+<!--        Select Room-->
+<!--      </button>-->
+    <button
+      class="btn btn-primary"
+      [routerLink]="['/rooms', room.roomNumber]">
+      Book Room
+    </button>
+  </tr>
+</table>

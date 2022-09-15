@@ -38,14 +38,14 @@ When we write files in Angular, we write 2 types of code:
 - they cannot have templates the way components can.
 - they won't have the template file, just the logic.
 
-1. Structural directives:
+### 1. Structural directives:
 - they change the structure of the DOM.
 - ngIf, ngFor, ngSwitch
 
-2. Attribute directives:
+### 2. Attribute directives:
 - ngClass, ngStyle - related to styling
 
-4. Built-in directives:
+### 3. Built-in directives:
 - The * indicates that it is a structural directive.
 - These are creating and displaying the DOM elements, that's why structural directives.
 - `*ngIf` - used to conditionally render a DOM element.
@@ -83,3 +83,24 @@ When we write files in Angular, we write 2 types of code:
 - They are methods that are called at different stages of the lifecycle of a component.
 - `contructor()` - component is initialized.
 - `ngOnInit()` - do something right after it is initialised, component data can be loaded, data from API can be fetched.
+- 
+
+
+## Component Communication
+- `@Input()` - used to pass data from parent to child.
+- `@Output()` - used to pass data from child to parent.
+- In the `rooms-list.component.ts`, we specify `@Input()` decorator and tell it that the data is coming from `roomList` property, then just use the property in the template.
+
+### Change Detection
+- When something is changed on the page, everything on that page gets re-rendered. This is not efficient. So to optimize this default change detection strategy.
+  - In `rooms-list.component.ts`, on `changeDetection` property we can use `OnPush` strategy. This will only re-render the component when the data changes.
+  - The `Default` strategy will re-render the component even if the data doesn't change.
+  </br> </br>
+
+- To use `OnPush`, we need to make sure we are not modifying any code internally in the component. As in when we are using @Input() and @Output(), we know that the data is coming from outside, so we don't need to worry about it. 
+- The second thing we need to worry about is `immutability`. In this, we don't modify the data, we create a new copy of the data and then modify it. This is done to make sure that the data is not modified internally.
+</br> </br>
+
+- `onchanges` - can only be used on a component that uses the `@Input()` decorator. 
+- Only used when that input data gets a new value.
+

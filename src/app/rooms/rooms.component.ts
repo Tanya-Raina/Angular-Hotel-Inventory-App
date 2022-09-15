@@ -17,6 +17,10 @@ export class RoomsComponent implements OnInit {
 
   hideRooms = false;
 
+  selectedRoom!: RoomList;
+
+  title = 'hotel-inventory';
+
   rooms: Room = {
     totalRooms: 20,
     availableRooms: 10,
@@ -63,6 +67,28 @@ export class RoomsComponent implements OnInit {
 
   toggle() {
     this.hideRooms = !this.hideRooms;
+    this.title = 'change-hotel-inventory';
+  }
+
+  selectRoom(room: RoomList) {
+    this.selectedRoom = room;
+  }
+
+  addRoom() {
+    const room: RoomList = {
+      roomNumber: 4,
+      roomType: 'Luxury',
+      amenities: 'AC, TV, Wifi, Fridge, Pool',
+      price: 15000,
+      photos: 'https://www.hotelroomsearch.net/im/hotel/uk/london/royal-northumberland-hotel-1.jpg',
+      checkinTime: new Date('29-Apr-2022'),
+      checkoutTime: new Date('30-Apr-2022'),
+      rating: 2.2,
+    }
+    // this.roomList.push(room); -> this will add the room but we are modifying the original array
+    this.roomList = [...this.roomList, room]; // -> this will create a new array and add the room to it
+    // using spread operator
+    // this will maintain the immutability of the array
   }
 }
 
